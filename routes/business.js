@@ -52,7 +52,7 @@ router.get('/', function(req, res, next) {
         console.log('subtable save success');
     });
 
-    res.send('business');
+    res.send('business info add to the database');
 });
 
 module.exports = router;

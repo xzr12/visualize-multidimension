@@ -118,7 +118,7 @@ router.get('/', function(req, res, next) {
         });
     });
 
-    res.send('subtable');
+    res.send('subtable info update');
 });
 
 function objInList (obj, l) {
