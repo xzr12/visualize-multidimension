@@ -7,7 +7,7 @@ var fs = require('fs');
 var readline = require('readline');
 
 router.get('/', function(req, res, next) {
-    var filename = 'data/yelp_academic_dataset_business.json';
+    var filename = 'data/output.json';
     var Business = require('../models/business');
     var SubTable = require('../models/subtable');
     var printSpeedInfo = require('./tools');
@@ -35,6 +35,9 @@ router.get('/', function(req, res, next) {
         counter++;
         if (counter % 5000 == 0) {
             printSpeedInfo(counter, startTime);
+        }
+        if (counter > 26728) {
+            console.log('input data finish');
         }
     });
 

@@ -11,6 +11,7 @@ router.get('/', function(req, res, next) {
 
     var counter, startTime = Date.now();
     var business, categories = [], attributes = {};
+    var subtable;
 
     Business.find({}, function (err, results) {
         if (err) throw err;
