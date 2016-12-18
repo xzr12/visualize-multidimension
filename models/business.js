@@ -19,26 +19,13 @@ var BusinessSchema = new Schema({
     categories: [String],
     open: Boolean,
     hours: {},
-    attributes: {}
+    attributes: {},
+    review: {
+        service: Number,
+        food: Number,
+        environment: Number,
+        price: Number
+    }
 });
 
 module.exports = mongoose.model('Business', BusinessSchema);
-
-// var Business = mongoose.model('Business', BusinessSchema);
-//
-// var businessInfo = function() {};
-//
-// businessInfo.prototype.save = function(obj, callback) {
-//     var instance = new Business(obj);
-//     instance.save(function(err) {
-//         callback(err);
-//     });
-// };
-//
-// businessInfo.prototype.findByName = function(name, callback) {
-//     Business.findOne({name: name}, function(err, obj) {
-//        callback(err, obj);
-//     });
-// };
-//
-// module.exports = new businessInfo();

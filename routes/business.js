@@ -7,7 +7,7 @@ var fs = require('fs');
 var readline = require('readline');
 
 router.get('/', function(req, res, next) {
-    var filename = 'data/yelp_academic_dataset_business.json';
+    var filename = 'data/output.json';
     var Business = require('../models/business');
     var SubTable = require('../models/subtable');
     var printSpeedInfo = require('./tools');
@@ -36,6 +36,9 @@ router.get('/', function(req, res, next) {
         if (counter % 5000 == 0) {
             printSpeedInfo(counter, startTime);
         }
+        if (counter > 26728) {
+            console.log('input data finish');
+        }
     });
 
     var categories = [];
@@ -52,7 +55,7 @@ router.get('/', function(req, res, next) {
         console.log('subtable save success');
     });
 
-    res.send('business');
+    res.send('business info add to the database');
 });
 
 module.exports = router;
