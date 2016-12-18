@@ -11,6 +11,7 @@ router.get('/', function(req, res, next) {
 
     var counter, startTime = Date.now();
     var business, categories = [], attributes = {};
+    var subtable;
 
     Business.find({}, function (err, results) {
         if (err) throw err;
@@ -118,7 +119,7 @@ router.get('/', function(req, res, next) {
         });
     });
 
-    res.send('subtable');
+    res.send('subtable info update');
 });
 
 function objInList (obj, l) {
