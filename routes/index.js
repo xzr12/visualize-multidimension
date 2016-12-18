@@ -1,5 +1,6 @@
 var express = require('express');
 var router = express.Router();
+var jsonGenerate = require('./search');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -7,10 +8,13 @@ router.get('/', function(req, res, next) {
 });
 
 router.get('/query/filter*', function (req, res) {
-  state = req.query.state;
-  city = req.query.city;
-  time = req.query.time;
-  res.sendFile("filter.json");
-})
+    var request = req.query;
+    var query = jsonGenerate(request);
+    var Business = require('../models/business');
+    Business.find(query, function (err, results) {
+        console.log(results[0]);
+        res.sendFile(results);
+    });
+});
 
 module.exports = router;
