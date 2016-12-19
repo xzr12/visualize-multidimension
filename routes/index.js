@@ -11,7 +11,7 @@ router.get('/query/filter*', function (req, res) {
     var request = req.query;
     var query = jsonGenerate(request);
     var Business = require('../models/business');
-    Business.find(query, function (err, results) {
+    Business.find(query["jsonRes"], query["jsonHour"], query["jsonPark"], query["jsonGoodFor"], function (err, results) {
         console.log(results[0]);
         res.sendFile(results);
     });
