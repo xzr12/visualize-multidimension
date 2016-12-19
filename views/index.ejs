@@ -5,11 +5,12 @@
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<!-- 百度地图 移动平台响应 -->
-		<meta name="viewport" content="initial-scale=1.0, user-scalable=no" />  
+		<meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
 		<!-- 引入 Bootstrap -->
 		<!-- 新 Bootstrap 核心 CSS 文件 -->
 		<link rel="stylesheet" href="/stylesheets/bootstrap.min.css">
 		<link rel="stylesheet" type="text/css" href="/stylesheets/bootstrap-tags.css">
+		<link rel="stylesheet" type="text/css" href="/stylesheets/map/map.css">
 		<!-- bootstrap-select2 -->
 		<!-- <link rel="stylesheet" type="text/css" href="plugins/select2/dist/css/select2.min.css"> -->
 	</head>
@@ -28,7 +29,7 @@
 						<div class="panel-body">
 							<form class="form-horizontal" role="form" id="filter1">
 								<div id="filter-state">
-									<div class="form-group"> 
+									<div class="form-group">
 										<label class="col-md-5 control-label">
 											<p>state</p>
 										</label>
@@ -39,8 +40,8 @@
 									</div>
 									<hr>
 								</div>
-								<div id="filter-city"  style="display: none"> 
-									<div class="form-group"> 
+								<div id="filter-city"  style="display: none">
+									<div class="form-group">
 										<label class="col-md-5 control-label">city</label>
 										<div class="col-md-7">
 											<select class="form-control select">
@@ -50,7 +51,7 @@
 									<hr>
 								</div>
 								<div id="filter-time" >
-									<div class="form-group"> 
+									<div class="form-group">
 										<label class="col-md-5 control-label">time</label>
 										<div class="col-md-7">
 											<select class="form-control select">
@@ -60,7 +61,7 @@
 									<hr>
 								</div>
 								<div id="filter-category" >
-									<div class="form-group"> 
+									<div class="form-group">
 										<label class="col-md-5 control-label">category</label>
 										<div class="col-md-7">
 											<select class="form-control select">
@@ -70,7 +71,7 @@
 									<hr>
 								</div>
 								<div id="filter-score" >
-									<div class="form-group"> 
+									<div class="form-group">
 										<label class="col-md-5 control-label">score</label>
 										<div class="col-md-7">
 											<select class="form-control select">
@@ -80,7 +81,7 @@
 									<hr>
 								</div>
 								<div id="filter-service" >
-									<div class="form-group"> 
+									<div class="form-group">
 										<label class="col-md-5 control-label">service</label>
 										<div class="col-md-7">
 											<select class="form-control select">
@@ -90,7 +91,7 @@
 									<hr>
 								</div>
 								<div id="filter-environment" >
-									<div class="form-group"> 
+									<div class="form-group">
 										<label class="col-md-5 control-label">environment</label>
 										<div class="col-md-7">
 											<select class="form-control select">
@@ -100,7 +101,7 @@
 									<hr>
 								</div>
 								<div id="filter-taste" >
-									<div class="form-group"> 
+									<div class="form-group">
 										<label class="col-md-5 control-label">taste</label>
 										<div class="col-md-7">
 											<select class="form-control select">
@@ -194,8 +195,8 @@
 		<!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
 		<script type="text/javascript" src="javascripts/bootstrap.min.js"></script>
 		<script type="text/javascript" src="javascripts/bootstrap-tags.min.js"></script>
-		<!-- 百度地图插件 -->
-		<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=qTdmwgrG18CqNheNf1C0jabllGmFGSgx"></script>
+		<!-- 谷歌地图插件 -->
+ 		<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAsK_qqRT_R_M1NpFy1NWAfvTffiY1-ER8&sensor=false&libraries=drawing"></script>
 		<!-- 本地js -->
 		<script type="text/javascript" src="javascripts/select.js"></script>
 		<script type="text/javascript" src="javascripts/map.js"></script>
