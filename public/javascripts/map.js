@@ -11,7 +11,7 @@ var testList = [{"name": "rest1", "stars": 4.1, "latitude": 40.3543266, "longitu
                 ];
 var restaurantList = new Array();
 // 选中餐厅列表
-var selectList = new Array();
+// var selectList = new Array();
 // 地图变量
 map = null;
 
@@ -88,7 +88,7 @@ function initialize()
     removeControlDiv.index = 1;
     map.controls[google.maps.ControlPosition.TOP_CENTER].push(removeControlDiv);
 
-    showRestInfo(testList);
+    // showRestInfo(testList);
 }
 function SelectControl(controlDiv, map, text) {
 
@@ -124,14 +124,14 @@ function SelectControl(controlDiv, map, text) {
             var len = restaurantList.length;
             for (var i = 0; i < restaurantList.length; i++) {
                 // 如果已在选中列表内，返回
-                 if ((pos = selectList.indexOf(restaurantList[i])) != -1) {
+                 if ((pos = select_results.indexOf(restaurantList[i])) != -1) {
                     continue;
                 }
                 var j;
                 for (j = 0, l = circleList.length; j < l; j++) {
                     var isIn = isInCircle(circleList[j], restaurantList[i]);
                     if (isIn) {
-                        selectList.push(restaurantList[i]);
+                        select_results.push(restaurantList[i]);
                         markerList[i].setIcon(selectedIcon);
                         break;
                     }
@@ -141,7 +141,7 @@ function SelectControl(controlDiv, map, text) {
                 }
                 for (j = 0; j < rectList.length; j++) {
                     if (isInRectangle(rectList[j], restaurantList[i])) {
-                        selectList.push(restaurantList[i]);
+                        select_results.push(restaurantList[i]);
                         markerList[i].setIcon(selectedIcon);
                         break;
                     }
@@ -156,15 +156,15 @@ function SelectControl(controlDiv, map, text) {
             var len = restaurantList.length;
             for (var i = 0; i < restaurantList.length; i++) {
                 // 如果不在选中列表内，返回
-                 if ((pos = selectList.indexOf(restaurantList[i])) == -1) {
+                 if ((pos = select_results.indexOf(restaurantList[i])) == -1) {
                     continue;
                 }
                 var j;
                 for (j = 0, l = circleList.length; j < l; j++) {
                     var isIn = isInCircle(circleList[j], restaurantList[i]);
                     if (isIn) {
-                        var pos = selectList.indexOf(restaurantList[i]);
-                        selectList.splice(pos, 1);
+                        var pos = select_results.indexOf(restaurantList[i]);
+                        select_results.splice(pos, 1);
                         markerList[i].setIcon(unselectedIcon);
                         break;
                     }
@@ -175,8 +175,8 @@ function SelectControl(controlDiv, map, text) {
 
                 for (j = 0; j < rectList.length; j++) {
                     if (isInRectangle(rectList[j], restaurantList[i])) {
-                        var pos = selectList.indexOf(restaurantList[i]);
-                        selectList.splice(pos, 1);
+                        var pos = select_results.indexOf(restaurantList[i]);
+                        select_results.splice(pos, 1);
                         markerList[i].setIcon(unselectedIcon);
                         break;
                     }
@@ -195,8 +195,8 @@ function SelectControl(controlDiv, map, text) {
 
 function showSelect() {
     // body...
-    for (var i = 0; i < selectList.length; i++) {
-        console.log(selectList[i]);
+    for (var i = 0; i < select_results.length; i++) {
+        console.log(select_results[i]);
     }
 }
 
@@ -247,9 +247,14 @@ function initParm(restList) {
     for (var i = 0; i < restList.length; i++) {
         restaurantList.push(restList[i]);
     }
-    selectList = new Array();
+    select_results = new Array();
     removeMarker();
     removeShape();
+}
+
+function update_map() {
+    // body...
+    showRestInfo(query_results);
 }
 
 // 显示餐馆信息，参数是json 数组, 调用的函数
@@ -278,11 +283,11 @@ function showRestInfo(restList) {
         });
         // marker点击事件，选中或者不选中状态切换
         google.maps.event.addListener(marker, 'click', function(){
-            if ((pos = selectList.indexOf(rest)) != -1) {
-                selectList.splice(pos, 1);
+            if ((pos = select_results.indexOf(rest)) != -1) {
+                select_results.splice(pos, 1);
                 marker.setIcon(unselectedIcon);
             } else {
-                selectList.push(rest);
+                select_results.push(rest);
                 marker.setIcon(selectedIcon);
             }
         });
