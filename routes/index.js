@@ -29,7 +29,7 @@ router.get('/query/filter*', function (req, res) {
     });
 });
 
-router.get('/query/citylist?', function (req, res) {
+router.get('/query/citylist*', function (req, res) {
     var state = req.query.state;
     var City = require('../models/city');
     City.find({"state": state}, function (err, results) {
