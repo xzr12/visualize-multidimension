@@ -11,7 +11,6 @@ router.get('/query/filter*', function (req, res) {
     var request = req.query;
     var query = jsonGenerate(request);
     var Business = require('../models/business');
-    console.log(query["jsonRes"]);
     Business.find().and([
         {"open": true},
         query["jsonRes"],
@@ -26,6 +25,15 @@ router.get('/query/filter*', function (req, res) {
         else {
             console.log(results.length);
         }
+        res.json(results);
+    });
+});
+
+router.get('/query/citylist?', function (req, res) {
+    var state = req.query.state;
+    var City = require('../models/city');
+    City.find({"state": state}, function (err, results) {
+        if (err) throw err;
         res.json(results);
     });
 });

@@ -8,6 +8,7 @@ router.get('/', function(req, res, next) {
     var Business = require('../models/business');
     var SubTable = require('../models/subtable');
     var printSpeedInfo = require('./tools');
+    var objInList = require('./objInList');
 
     var counter, startTime = Date.now();
     var business, categories = [], attributes = {};
@@ -154,14 +155,5 @@ router.get('/', function(req, res, next) {
 
     res.send('subtable info update');
 });
-
-function objInList (obj, l) {
-    for (var i = 0, le = l.length; i < le; i++) {
-        if(obj == l[i]) {
-            return true;
-        }
-    }
-    return false;
-}
 
 module.exports = router;
