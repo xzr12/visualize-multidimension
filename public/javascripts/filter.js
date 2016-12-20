@@ -6,7 +6,7 @@ function init_filter()
 	// init filter variable
 	filter.review = new Object();
 	filter.attr = new Object();
-	
+
 	filter.state = null;
 	filter.city = null;
 	filter.hours = null;
@@ -14,17 +14,17 @@ function init_filter()
 	filter.attr.Parking = null;
 	filter.attr.WiFi = null;
 	filter.attr.NoiseLevel = null;
-	
+
 	filter.stars = null;
 	filter.review.service = null;
 	filter.review.environment = null;
 	filter.review.food = null;
 	filter.review.price = null;
-	
+
 	filter.attr.AcceptsCreditCards = null;
 	filter.attr.HappyHour = null;
 	filter.attr.TakeReservations = null;
-	filter.attr.Open24Hours = null;	
+	filter.attr.Open24Hours = null;
 
 	// init filter doms
 	init_all_filters();
@@ -256,7 +256,7 @@ function send_query_conditions()
 		if (xmlhttp.readyState==4 && xmlhttp.status==200){
 		    query_results = JSON.parse(xmlhttp.responseText);
 		    console.log(query_results);
-		    // update_by_query_results();
+		    update_display();
 		}
 	}
 }
@@ -286,8 +286,8 @@ function generate_query_str(){
 }
 // update right-list-group & thumbnails & map & summarize
 function update_by_query_results(){
-	update_right_list_group();
-	update_thumbnails();
-	update_map();
-	update_summarize();
+	//update_right_list_group();
+	//update_thumbnails();
+	//update_map(query_results);
+	//update_summarize();
 }

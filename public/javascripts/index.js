@@ -15,7 +15,7 @@ function init_css(){
 function update_display()
 {
 	// update_thumbnails();
-	// update_map();
+	update_map();
 	// update_summarize();
 	// update_details();
 }
@@ -33,10 +33,10 @@ function init()
 }
 
 $(document).ready(function(){
-	var filter = new Object(); 
+	var filter = new Object();
 	var query_results;
-	var select_results;
-	var maxnum_select_results = 5;	
+	var select_results = new Array();
+	var maxnum_select_results = 5;
 
 	init();
 })
