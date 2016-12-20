@@ -11,16 +11,40 @@ router.get('/', function(req, res, next) {
 
     var counter, startTime = Date.now();
     var business, categories = [], attributes = {};
+    var stateList = [], cityList = [], stars = 0, food = 0, service = 0, environment = 0, price = 0;
     var subtable;
 
     Business.find({}, function (err, results) {
         if (err) throw err;
         business = results;
 
-        console.log('categories processing begin');
-
+        console.log('state, city, stars, review score, categories processing begin');
+        var one, review;
         var jsonList = [];
         for (var i = 0, l = business.length; i < l; i++) {
+            one = business[i];
+            if (!objInList(one.state, stateList)) {
+                stateList.push(one.state);
+            }
+            if (!objInList(one.city, cityList)) {
+                cityList.push(one.city);
+            }
+            if (stars > one.stars) {
+                stars = one.stars;
+            }
+            review = one.review;
+            if (food > review.food) {
+                food = review.food;
+            }
+            if (service > review.service) {
+                service = review.service;
+            }
+            if (environment > review.environment) {
+                environment = review.environment;
+            }
+            if (price > review.price) {
+                price = review.price;
+            }
             for (var j = 0, k = business[i].categories.length; j < k; j++) {
                 var cateObj = business[i].categories[j];
                 if (!objInList(cateObj, categories) && cateObj != 'Restaurants') {
@@ -43,10 +67,10 @@ router.get('/', function(req, res, next) {
             jsonObj = jsonList[0].content;
             jsonParent = jsonList[0].parent;
             if ((typeof jsonObj) == 'object') {
-                for (var k in jsonObj) {
+                for (var key1 in jsonObj) {
                     jsonList.push({
-                        parent:jsonParent.concat(k),
-                        content:jsonObj[k]
+                        parent: jsonParent.concat(key1),
+                        content: jsonObj[key1]
                     })
                 }
             }
@@ -109,6 +133,15 @@ router.get('/', function(req, res, next) {
             subtable = results[0];
             SubTable.update({_id: subtable._id}, {
                 $set: {
+                    state: stateList,
+                    city: cityList,
+                    stars: stars,
+                    review: {
+                        service: service,
+                        food: food,
+                        environment: environment,
+                        price: price
+                    },
                     categories: categories,
                     attributes: attributes
                 }

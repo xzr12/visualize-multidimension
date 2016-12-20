@@ -9,10 +9,11 @@ router.get('/', function(req, res, next) {
 
 router.get('/query/filter*', function (req, res) {
     var request = req.query;
-    console.log(request);
     var query = jsonGenerate(request);
     var Business = require('../models/business');
+    console.log(query["jsonRes"]);
     Business.find().and([
+        {"open": true},
         query["jsonRes"],
         query["jsonHour"],
         query["jsonPark"],
