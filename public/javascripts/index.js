@@ -32,11 +32,10 @@ function init()
 	init_css();
 }
 
+var filter = new Object();
+var query_results;
+var select_results = new Array();
+var maxnum_select_results = 5;
 $(document).ready(function(){
-	var filter = new Object();
-	var query_results;
-	var select_results = new Array();
-	var maxnum_select_results = 5;
-
 	init();
 })

@@ -204,7 +204,7 @@ function generate_city_options(){
 		{
 			xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
 		}
-		xmlhttp.open("GET",("/query/citylist/"+"?state="+filter.state+".json"),true);
+		xmlhttp.open("GET",("/query/citylist/"+"?state="+filter.state),true);
 		xmlhttp.send();
 		xmlhttp.onreadystatechange=function()
 		{
@@ -255,10 +255,14 @@ function send_query_conditions()
 	{
 		if (xmlhttp.readyState==4 && xmlhttp.status==200){
 		    query_results = JSON.parse(xmlhttp.responseText);
-		    console.log(query_results);
+		    // get intersection of select_results and query_results
+		    update_select_results();
 		    update_display();
 		}
 	}
+}
+function update_select_results(){
+	select_results = select_results.filter(v => query_results.includes(v))
 }
 function generate_query_str(){
 	var str = "";
@@ -283,11 +287,4 @@ function generate_query_str(){
 	str = str.substring(0, str.length-1);
 	// str = "attributes.Good-For=Breakfast&attributes.Good-For=Lunch";
 	return str;
-}
-// update right-list-group & thumbnails & map & summarize
-function update_by_query_results(){
-	//update_right_list_group();
-	//update_thumbnails();
-	//update_map(query_results);
-	//update_summarize();
 }
