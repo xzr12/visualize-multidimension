@@ -149,6 +149,7 @@ function SelectControl(controlDiv, map, text) {
 
             }
             removeShape();
+            update_summarize();
         });
     } else if (text == '取消选中') {
         google.maps.event.addDomListener(controlUI, 'click', function() {
@@ -184,6 +185,7 @@ function SelectControl(controlDiv, map, text) {
 
             }
             removeShape();
+            update_summarize();
         });
     } else {
         google.maps.event.addDomListener(controlUI, 'click', function() {
@@ -290,6 +292,7 @@ function showRestInfo(restList) {
                 select_results.push(rest);
                 marker.setIcon(selectedIcon);
             }
+            update_summarize();
         });
         markerList.push(marker);
     });

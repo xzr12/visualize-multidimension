@@ -16,7 +16,7 @@ function update_display()
 {
 	// update_thumbnails();
 	update_map();
-	// update_summarize();
+	update_summarize();
 	// update_details();
 }
 
