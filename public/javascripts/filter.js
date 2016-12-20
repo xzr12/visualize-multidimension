@@ -100,6 +100,8 @@ function change_query_conditions(id){
 		case "filter-city":
 		{
 			filter.city = $("#filter-city select").val();
+			if (filter.city == "")
+				filter.city = null;
 			break;
 		}
 		case "filter-time":
@@ -190,8 +192,8 @@ function change_query_conditions(id){
 	}
 }
 function generate_city_options(){
-	var state = $("#filter-state select").val();
-	if (state != "")
+	$("filter-city select").empty();
+	if (filter.state != null)
 	{
 		var xmlhttp;
 		if (window.XMLHttpRequest)
@@ -202,7 +204,7 @@ function generate_city_options(){
 		{
 			xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
 		}
-		xmlhttp.open("GET",("/ajax/cities/"+state+".json"),true);
+		xmlhttp.open("GET",("/ajax/cities/"+filter.state+".json"),true);
 		xmlhttp.send();
 		xmlhttp.onreadystatechange=function()
 		{
@@ -210,6 +212,7 @@ function generate_city_options(){
 		    {
 		        var data = JSON.parse(xmlhttp.responseText);
 		        var filter_city = $("#filter-city select");
+		        add_option(filter_city, "");
 		        for (var i = 0;i < data.cities.length;i ++)
 		        {
 		        	add_option(filter_city, data.cities[i]);
@@ -221,6 +224,7 @@ function generate_city_options(){
 	else
 	{
 		$("#filter-city select").prop("disabled", true);
+		filter.city = null;
 	}
 }
 function add_option(dst, content){
