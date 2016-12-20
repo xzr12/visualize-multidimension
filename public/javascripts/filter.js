@@ -249,9 +249,11 @@ function send_query_conditions()
 	xmlhttp.send();
 	xmlhttp.onreadystatechange=function()
 	{
-	    query_results = JSON.parse(xmlhttp.responseText);
-	    console.log(query_results);
-	    // update_by_query_results();
+		if (xmlhttp.readyState==4 && xmlhttp.status==200){
+		    query_results = JSON.parse(xmlhttp.responseText);
+		    console.log(query_results);
+		    // update_by_query_results();
+		}
 	}
 }
 function generate_query_str(){

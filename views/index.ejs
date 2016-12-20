@@ -15,6 +15,13 @@
 		<link rel="stylesheet" type="text/css" href="/stylesheets/map/map.css">
 		<!-- bootstrap-select2 -->
 		<!-- <link rel="stylesheet" type="text/css" href="plugins/select2/dist/css/select2.min.css"> -->
+		<!-- slf -->
+		<!-- lineup 相关css -->
+        <script src="/libs/FileSaver.js"></script>
+        <link href="/stylesheets/font-awesome.min.css" rel="stylesheet" type='text/css'>
+        <link href="/stylesheets/lineup/style.css" rel="stylesheet">
+        <link href="/stylesheets/lineup/style-demo.css" rel="stylesheet">
+		<!-- slf end -->
 	</head>
 	<body>
 		<div class="container" style="width: 100%">
@@ -31,7 +38,7 @@
 						<div class="panel-body" style="overflow: auto; height: inherit;">
 							<form class="form-horizontal" role="form" id="filter">
 								<div id="filter-state">
-									<div class="form-group"> 
+									<div class="form-group">
 										<label class="col-md-3 control-label">state</label>
 										<div class="col-md-9">
 											<select class="form-control select">
@@ -101,8 +108,8 @@
 									</div>
 									<hr>
 								</div>
-								<div id="filter-city"> 
-									<div class="form-group"> 
+								<div id="filter-city">
+									<div class="form-group">
 										<label class="col-md-3 control-label">city</label>
 										<div class="col-md-9">
 											<select class="form-control select">
@@ -112,7 +119,7 @@
 									<hr>
 								</div>
 								<div id="filter-time">
-									<div class="form-group"> 
+									<div class="form-group">
 										<label class="col-md-3 control-label">time</label>
 										<div class="col-md-9">
 											<select class="form-control select" multiple="multiple">
@@ -129,7 +136,7 @@
 									<hr>
 								</div>
 								<div id="filter-type">
-									<div class="form-group"> 
+									<div class="form-group">
 										<label class="col-md-3 control-label">type</label>
 										<div class="col-md-9">
 											<select class="form-control select" multiple="multiple">
@@ -145,7 +152,7 @@
 									<hr>
 								</div>
 								<div id="filter-attr-parking" >
-									<div class="form-group"> 
+									<div class="form-group">
 										<label class="col-md-3 control-label">parking</label>
 										<div class="col-md-9">
 											<select class="form-control select" multiple="multiple">
@@ -160,7 +167,7 @@
 									<hr>
 								</div>
 								<div id="filter-attr-wifi" >
-									<div class="form-group"> 
+									<div class="form-group">
 										<label class="col-md-3 control-label">wifi</label>
 										<div class="col-md-9">
 											<select class="form-control select"  multiple="multiple">
@@ -172,7 +179,7 @@
 									<hr>
 								</div>
 								<div id="filter-attr-noiselevel">
-									<div class="form-group"> 
+									<div class="form-group">
 										<label class="col-md-3 control-label">noise</label>
 										<div class="col-md-9">
 											<select class="form-control select" multiple="multiple">
@@ -186,7 +193,7 @@
 									<hr>
 								</div>
 								<div id="filter-star">
-									<div class="form-group"> 
+									<div class="form-group">
 										<label for="input-xs" class="col-md-3 control-label">star</label>
 										<div class="col-md-9">
 											<input id="input-star" class="rating rating-loading" data-show-clear="false" data-show-caption="true" value="1" data-min="0" data-max="5" data-step="0.5" data-size="xs">
@@ -195,7 +202,7 @@
 									<hr>
 								</div>
 								<div id="filter-review-service">
-									<div class="form-group"> 
+									<div class="form-group">
 										<label for="input-xs" class="col-md-3 control-label">service</label>
 										<div class="col-md-9">
 											<input id="input-xs" class="rating rating-loading" data-show-clear="false" data-show-caption="true" value="1" data-min="0" data-max="5" data-step="0.5" data-size="xs">
@@ -204,7 +211,7 @@
 									<hr>
 								</div>
 								<div id="filter-review-environment">
-									<div class="form-group"> 
+									<div class="form-group">
 										<label for="input-xs" class="col-md-3 control-label">environ-<br>ment</label>
 										<div class="col-md-9">
 											<input id="input-xs" class="rating rating-loading" data-show-clear="false" data-show-caption="true" value="1" data-min="0" data-max="5" data-step="0.5" data-size="xs">
@@ -213,7 +220,7 @@
 									<hr>
 								</div>
 								<div id="filter-review-food">
-									<div class="form-group"> 
+									<div class="form-group">
 										<label for="input-xs" class="col-md-3 control-label">food</label>
 										<div class="col-md-9">
 											<input id="input-xs" class="rating rating-loading" data-show-clear="false" data-show-caption="true" value="1" data-min="0" data-max="5" data-step="0.5" data-size="xs">
@@ -222,7 +229,7 @@
 									<hr>
 								</div>
 								<div id="filter-review-price">
-									<div class="form-group"> 
+									<div class="form-group">
 										<label for="input-xs" class="col-md-3 control-label">price</label>
 										<div class="col-md-9">
 											<input id="input-xs" class="rating rating-loading" data-show-clear="false" data-show-caption="true" value="1" data-min="0" data-max="5" data-step="0.5" data-size="xs">
@@ -297,51 +304,48 @@
 					</div>
 					<div class="row clearfix">
 						<div class="col-md-8 column" style="margin-top: 10px; margin-bottom: 0px">
-							<div class="col-md-12 column" id="thumbnails">
-								<div class="col-sm-6 col-md-3">
-							        <a href="#" class="thumbnail">
-							            <img src="images/kittens.jpg"
-							                 alt="通用的占位符缩略图">
-							        </a>
-							    </div>
-							    <div class="col-sm-6 col-md-3">
-							        <a href="#" class="thumbnail">
-							            <img src="images/kittens.jpg"
-							                 alt="通用的占位符缩略图">
-							        </a>
-							    </div>
-							    <div class="col-sm-6 col-md-3">
-							        <a href="#" class="thumbnail">
-							            <img src="images/kittens.jpg"
-							                 alt="通用的占位符缩略图">
-							        </a>
-							    </div>
-							    <div class="col-sm-6 col-md-3">
-							        <a href="#" class="thumbnail">
-							            <img src="images/kittens.jpg"
-							                 alt="通用的占位符缩略图">
-							        </a>
-							    </div>
-							</div>
-							<div class="col-md-12 column" id="tabs">
-								<div class="tabbable" id="tabs-1">
-									<ul class="nav nav-tabs">
-										<li class="active">
-											<a href="#panel-map" data-toggle="tab">Map</a>
-										</li>
-										<li>
-											 <a href="#panel-summarize" data-toggle="tab">Summarize</a>
-										</li>
-									</ul>
-									<div class="tab-content">
-										<div class="tab-pane active" id="panel-map">
-											<div id="map"  style="width: 100%; height: 600px; margin-top: 20px">
-											</div>
+							<div class="col-sm-6 col-md-3">
+						        <a href="#" class="thumbnail">
+						            <img src="images/kittens.jpg"
+						                 alt="通用的占位符缩略图">
+						        </a>
+						    </div>
+						    <div class="col-sm-6 col-md-3">
+						        <a href="#" class="thumbnail">
+						            <img src="images/kittens.jpg"
+						                 alt="通用的占位符缩略图">
+						        </a>
+						    </div>
+						    <div class="col-sm-6 col-md-3">
+						        <a href="#" class="thumbnail">
+						            <img src="images/kittens.jpg"
+						                 alt="通用的占位符缩略图">
+						        </a>
+						    </div>
+						    <div class="col-sm-6 col-md-3">
+						        <a href="#" class="thumbnail">
+						            <img src="images/kittens.jpg"
+						                 alt="通用的占位符缩略图">
+						        </a>
+						    </div>
+							<div class="tabbable" id="tabs-1">
+								<ul class="nav nav-tabs">
+									<li class="active">
+										<a href="#panel-map" data-toggle="tab">Map</a>
+									</li>
+									<li>
+										 <a href="#panel-summarize" data-toggle="tab">Summarize</a>
+									</li>
+								</ul>
+								<div class="tab-content">
+									<div class="tab-pane active" id="panel-map">
+										<div id="map"  style="width: 100%; height: 1200px; margin-top: 20px">
 										</div>
-										<div class="tab-pane" id="panel-summarize">
-											<p>
-												Summarize.
-											</p>
+									</div>
+									<div class="tab-pane" id="panel-summarize" style="overflow: auto;">
+										<div id="lugui-wrapper" style="margin-top: 20px; width: 100%; height: 800px"></div>
+										<div id="pool">
+										  <div style="text-align: right">New Column <i class="fa fa-close"></i></div>
 										</div>
 									</div>
 								</div>
@@ -377,5 +381,12 @@
 		<script type="text/javascript" src="javascripts/filter.js"></script>
 		<script type="text/javascript" src="javascripts/map.js"></script>
 		<script type="text/javascript" src="javascripts/index.js"></script>
+		<!-- slf -->
+		<!-- lineup 相关js -->
+        <script src="/javascripts/lineup/d3.js"></script>
+        <script src="/javascripts/lineup/es6-promise.js"></script>
+        <script src="/javascripts/lineup/LineUpJS.js"></script>
+        <script src="/javascripts/lineup/lineup_demo.js"></script>
+		<!-- slf end -->
 	</body>
 </html>

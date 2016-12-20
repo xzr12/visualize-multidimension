@@ -1,0 +1,10 @@
+{
+  "datasets": [
+    {
+      "id": "prosperity",
+      "baseURL": "data",
+      "descriptionFile": "prosperity_rest.json",
+      "name": "Yelp Restaurant"
+    }
+  ]
+}
