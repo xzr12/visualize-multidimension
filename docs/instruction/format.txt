@@ -1,0 +1,23 @@
+keyword              value       
+       
+"state"              "California"
+"city"               "Madison"
+"hours"              "Monday,Tuesday,Sunday"   
+"stars"               4                              4:4及以上；5：仅包括5
+"review.service"       
+"review.environment"       
+"review.food"       
+"review.price"      
+        ..                             ..
+//后面修改attributes
+
+
+"attributes.Parking"               "lot,street"
+后面我没改..大概这个意思
+"Wi-Fi":["free", "no", "paid"], "Noise-Level":["average","loud"], "Happy-Hour":"True", "Accepts-Credit-Cards":"True", "Take-Reservations":"False", "Open-24-Hours":"True", "Good-For": ["breakfast","dinner"]}'
+
+
+jsonRes: state, city, stars, review.*(4), happyHour, acc,ta,OPEN24, wifi, noise
+jsonHour: hour or ok
+jsonPark: or
+jsonGoodFor

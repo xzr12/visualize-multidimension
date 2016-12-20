@@ -1,0 +1,3 @@
+db.businesses.find({"categories": {"$in" : ["Fast Food"]}}).limit(1)
+db.businesses.find({"review.food": {"$gte": 1.5}}).limit(1)
+db.businesses.find({"hours.Wednesday.open": {"$exists": true}, "review.food": {"$gte": 1.5}}).limit(1)
