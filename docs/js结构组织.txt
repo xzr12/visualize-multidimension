@@ -1,0 +1,33 @@
+index.js:
+	全局变量：
+		filter:              过滤条件            type:object
+		query_result:        查询结果            type:array of object
+		select_result:       选中结果            type:array of object
+		maxnum_select_result:选中结果条数限制    type:int
+	函数：
+		init(){
+			init_filter();
+			init_tags();
+			init_thumbnails();
+			init_map();
+			init_summarize();
+			init_details();
+		}
+		update_display()
+		{
+			update_thumbnails();
+			update_map();
+			update_summarize();
+			update_details();
+		}
+map.js:
+	1 update_map():根据query_result和select_result更新地图；
+	2 根据用户的选择结果更新select_result,并执行update_display();
+details.js:
+	1 update_details():根据query_result和select_result更新列表；
+	2 根据用户的选择结果更新select_result,并执行update_display();
+thumbnails.js:
+	1 update_thumbnails():根据select_result更新；
+	2 根据用户的删除操作更新select_result,并执行update_display();
+summarize.js:
+	1 update_summarize():根据select_result更新列表；

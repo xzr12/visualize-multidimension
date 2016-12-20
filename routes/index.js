@@ -9,11 +9,23 @@ router.get('/', function(req, res, next) {
 
 router.get('/query/filter*', function (req, res) {
     var request = req.query;
+    console.log(request);
     var query = jsonGenerate(request);
     var Business = require('../models/business');
-    Business.find(query["jsonRes"], query["jsonHour"], query["jsonPark"], query["jsonGoodFor"], function (err, results) {
-        console.log(results[0]);
-        res.sendFile(results);
+    Business.find().and([
+        query["jsonRes"],
+        query["jsonHour"],
+        query["jsonPark"],
+        query["jsonGoodFor"]
+    ]).limit(50).exec(function (err, results) {
+        if (err) throw err;
+        if (results.length == 0) {
+            console.log("no result");
+        }
+        else {
+            console.log(results.length);
+        }
+        res.json(results);
     });
 });
 

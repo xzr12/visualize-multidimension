@@ -1,0 +1,4 @@
+1 前端解析node返回的json的时候可以得到正确结果，但是控制台会报错：
+	Uncaught SyntaxError: Unexpected end of JSON input
+    at JSON.parse (<anonymous>)
+    at XMLHttpRequest.xmlhttp.onreadystatechange.
