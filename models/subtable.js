@@ -5,6 +5,15 @@ var mongoose = require('./mongodb'),
     Schema = mongoose.Schema;
 
 var subTableSchema = new Schema({
+    state: [String],
+    city: [String],
+    stars: Number,
+    review: {
+        service: Number,
+        food: Number,
+        environment: Number,
+        price: Number
+    },
     categories: [String],
     hours: [String],
     attributes: {}

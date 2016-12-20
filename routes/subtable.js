@@ -11,7 +11,7 @@ router.get('/', function(req, res, next) {
 
     var counter, startTime = Date.now();
     var business, categories = [], attributes = {};
-    var stateList = [], cityList = [], stars = 0, food = 0, service = 0, environment = 0, price = 0;
+    var stateList = [], cityList = [], stars = 5, food = 5, service = 5, environment = 5, price = 5;
     var subtable;
 
     Business.find({}, function (err, results) {
