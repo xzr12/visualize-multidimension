@@ -204,7 +204,7 @@ function generate_city_options(){
 		{
 			xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
 		}
-		xmlhttp.open("GET",("/ajax/cities/"+filter.state+".json"),true);
+		xmlhttp.open("GET",("/query/citylist/"+"?state="+filter.state+".json"),true);
 		xmlhttp.send();
 		xmlhttp.onreadystatechange=function()
 		{
