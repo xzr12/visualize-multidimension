@@ -40,4 +40,4 @@ var select_results = new Array();
 var maxnum_select_results = 5;
 $(document).ready(function(){
 	init();
-})
+});
