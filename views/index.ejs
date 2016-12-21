@@ -15,6 +15,7 @@
 		<link rel="stylesheet" type="text/css" href="/stylesheets/map/map.css">
 		<!-- bootstrap-select2 -->
 		<!-- <link rel="stylesheet" type="text/css" href="plugins/select2/dist/css/select2.min.css"> -->
+
 		<!-- slf -->
 		<!-- lineup 相关css -->
         <script src="/libs/FileSaver.js"></script>
@@ -22,6 +23,10 @@
         <link href="/stylesheets/lineup/style.css" rel="stylesheet">
         <link href="/stylesheets/lineup/style-demo.css" rel="stylesheet">
 		<!-- slf end -->
+		<!-- xzr -->
+		<!-- list 相关css -->
+		<link rel="stylesheet" type="text/css" href="/stylesheets/list.css">
+		<!-- xzr end -->
 	</head>
 	<body>
 		<div class="container" style="width: 100%">
@@ -315,16 +320,19 @@
 							</div>
 						</div>
 						<div class="col-md-4 column" style="margin-top: 10px">
-							<div class="list-group">
-								<li class="list-group-item">
-									List group item heading
-								</li>
-								<li class="list-group-item">
-									List group item heading
-								</li>
-								<li class="list-group-item">
-									List group item heading
-								</li>
+							<div id="reslist" class="list-group">
+								<div style="margin: 0 0.5em; margin-bottom: -0.5em;">
+									<input class="search" placeholder="Search" />
+									<button class="sort" data-sort="name">name</button>
+									<button class="sort" data-sort="count">reviews</button>
+									<button class="sort" data-sort="stars">star</button>
+									<button class="sort" data-sort="service">service</button>
+									<button class="sort" data-sort="environment">environment</button>
+									<button class="sort" data-sort="food">food</button>
+									<button class="sort" data-sort="price">price</button>
+								</div>
+								<ul class="list">
+								</ul>
 							</div>
 						</div>
 					</div>
@@ -349,9 +357,13 @@
         <script src="/javascripts/lineup/d3.js"></script>
         <script src="/javascripts/lineup/es6-promise.js"></script>
         <script src="/javascripts/lineup/LineUpJS.js"></script>
-
         <!-- summarize -->
         <script type="text/javascript" src="/javascripts/summarize.js"></script>
 		<!-- slf end -->
+		<!-- xzr -->
+		<!-- list 相关js -->
+		<script type="text/javascript" src="/javascripts/list.min.js"></script>
+		<script type="text/javascript" src="/javascripts/listshow.js"></script>
+		<!-- xzr end -->
 	</body>
 </html>

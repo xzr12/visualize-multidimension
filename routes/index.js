@@ -35,6 +35,7 @@ router.get('/query/citylist*', function (req, res) {
     City.find({"state": state}, function (err, results) {
         if (err) throw err;
         res.json(results);
+
     });
 });
 
