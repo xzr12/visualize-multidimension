@@ -15,6 +15,7 @@ function init_css(){
 function update_display()
 {
 	// update_thumbnails();
+	update_list();
 	console.log("new2",select_results);
 	update_map();
 	console.log("new3",select_results);
