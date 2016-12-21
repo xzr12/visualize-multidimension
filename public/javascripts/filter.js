@@ -76,6 +76,12 @@ function init_all_filters(){
 	});
 }
 
+function init_tags(){
+	// $("#tags input").tagsinput({
+	// 	freeInput: false
+	// });
+}
+
 // 选择响应
 function filter_changed(){
 	// change query condition
@@ -92,9 +98,15 @@ function change_query_conditions(id){
 	{
 		case "filter-state":
 		{
-			filter.state = $("#filter-state select").val();
-			if (filter.state == "")
+			if ($("#filter-state select").val() == ""){
+				// $("#tags input").tagsinput('remove','state:'+filter.state);
 				filter.state = null;
+			}
+			else{
+				// $("#tags input").tagsinput('remove','state:'+filter.state);
+				filter.state = $("#filter-state select").val();
+				// $("#tags input").tagsinput('add','state:'+filter.state);
+			}
 			break;
 		}
 		case "filter-city":

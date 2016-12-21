@@ -25,7 +25,7 @@ function update_display()
 function init()
 {
 	init_filter();
-	// init_tags();
+	init_tags();
 	// init_thumbnails();
 	// init_map();
 	// init_summarize();
