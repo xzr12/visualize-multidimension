@@ -39,4 +39,4 @@ $(document).ready(function(){
 	var maxnum_select_results = 5;
 
 	init();
-})
+});
