@@ -249,13 +249,15 @@ function initParm(restList) {
     for (var i = 0; i < restList.length; i++) {
         restaurantList.push(restList[i]);
     }
-    select_results = new Array();
     removeMarker();
     removeShape();
 }
 
 function update_map() {
     // body...
+    if (query_results == null || query_results.length == 0) {
+        return;
+    }
     showRestInfo(query_results);
 }
 

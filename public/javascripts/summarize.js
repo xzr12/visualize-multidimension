@@ -114,7 +114,18 @@ d3.select(window).on('resize', function() {
     }
 });
 
+function init_summarize() {
+    // body...
+    $('#lugui-wrapper').empty();
+    $('#pool').empty();
+    lineup = null;
+}
+
 function update_summarize() {
+    if (select_results == null || select_results.length == 0) {
+        return;
+    }
+    init_summarize();
     var format_data = new Array();
     for (var i = 0; i < select_results.length; i++) {
         format_data.push({  business_id: select_results[i].business_id,
