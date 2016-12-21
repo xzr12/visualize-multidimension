@@ -15,7 +15,9 @@ function init_css(){
 function update_display()
 {
 	// update_thumbnails();
+	console.log("new2",select_results);
 	update_map();
+	console.log("new3",select_results);
 	update_summarize();
 	// update_details();
 }
@@ -32,11 +34,10 @@ function init()
 	init_css();
 }
 
+var filter = new Object();
+var query_results;
+var select_results = new Array();
+var maxnum_select_results = 5;
 $(document).ready(function(){
-	var filter = new Object();
-	var query_results;
-	var select_results = new Array();
-	var maxnum_select_results = 5;
-
 	init();
 });

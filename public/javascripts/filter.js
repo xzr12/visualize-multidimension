@@ -192,7 +192,7 @@ function change_query_conditions(id){
 	}
 }
 function generate_city_options(){
-	$("filter-city select").empty();
+	$("#filter-city select").empty();
 	if (filter.state != null)
 	{
 		var xmlhttp;
@@ -204,18 +204,18 @@ function generate_city_options(){
 		{
 			xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
 		}
-		xmlhttp.open("GET",("/query/citylist/"+"?state="+filter.state+".json"),true);
+		xmlhttp.open("GET",("/query/citylist/"+"?state="+filter.state),true);
 		xmlhttp.send();
 		xmlhttp.onreadystatechange=function()
 		{
 		    if (xmlhttp.readyState==4 && xmlhttp.status==200)
 		    {
-		        var data = JSON.parse(xmlhttp.responseText);
+		        var data = JSON.parse(xmlhttp.responseText)[0];
 		        var filter_city = $("#filter-city select");
 		        add_option(filter_city, "");
-		        for (var i = 0;i < data.cities.length;i ++)
+		        for (var i = 0;i < data.city.length;i ++)
 		        {
-		        	add_option(filter_city, data.cities[i]);
+		        	add_option(filter_city, data.city[i]);
 		        }
 		    }
 		}
@@ -248,17 +248,26 @@ function send_query_conditions()
 	}
 	// var str_filter = 'state=' + filter.state + '&' + 'city=' + filter.city + '&' + 'time=' + filter.time + '&' + 'category=' + filter.category;
 	var str_filter = generate_query_str();
-	console.log(str_filter);
 	xmlhttp.open("GET",("/query/filter_result.json?"+str_filter),true);
 	xmlhttp.send();
 	xmlhttp.onreadystatechange=function()
 	{
 		if (xmlhttp.readyState==4 && xmlhttp.status==200){
 		    query_results = JSON.parse(xmlhttp.responseText);
-		    console.log(query_results);
+		    // get intersection of select_results and query_results
+		    select_results = select_results.filter(v => in_query_array(v));
+		    console.log("new1",select_results);
 		    update_display();
 		}
 	}
+}
+function in_query_array(elem){
+	for (var i = 0;i < query_results.length;i ++){
+		if (elem._id == query_results[i]._id){
+			return true;
+		}
+	}
+	return false;
 }
 function generate_query_str(){
 	var str = "";
@@ -283,11 +292,4 @@ function generate_query_str(){
 	str = str.substring(0, str.length-1);
 	// str = "attributes.Good-For=Breakfast&attributes.Good-For=Lunch";
 	return str;
-}
-// update right-list-group & thumbnails & map & summarize
-function update_by_query_results(){
-	//update_right_list_group();
-	//update_thumbnails();
-	//update_map(query_results);
-	//update_summarize();
 }
