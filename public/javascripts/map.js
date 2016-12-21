@@ -249,12 +249,12 @@ function initParm(restList) {
     for (var i = 0; i < restList.length; i++) {
         restaurantList.push(restList[i]);
     }
-    removeMarker();
-    removeShape();
 }
 
 function update_map() {
     // body...
+    removeMarker();
+    removeShape();
     if (query_results == null || query_results.length == 0) {
         return;
     }
