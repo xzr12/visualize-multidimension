@@ -8,8 +8,9 @@ function init_css(){
 	var tags_height = $("#tags").outerHeight() + 20;
 	var reslist_height = window_height - tags_height;
 	var reslist_head_height = $("#reslist div").outerHeight();
-	var reslist_body_height = reslist_height - reslist_head_height;
+	var reslist_body_height = reslist_height - reslist_head_height - 15;
 	$("#reslist").css("margin-bottom", 0);
+	$("#reslist ul").css("margin-top", 20);	
 	$("#reslist ul").outerHeight(reslist_body_height);
 
 	// set map size
@@ -23,26 +24,21 @@ function update_display()
 {
 	// update_thumbnails();
 	update_list();
-	console.log("new2",select_results);
+	// console.log("new2",select_results);
 	update_map();
-	console.log("new3",select_results);
+	// console.log("new3",select_results);
 	update_summarize();
 	// update_details();
 }
 
 function init()
 {
-	init_filter();
-	init_tags();
-	// init_thumbnails();
-	// init_map();
-	// init_summarize();
-	// init_details();
-
+	filter = Object.create(Filter);
+	filter.init();
+	$('#filter [id]').change(function(){ var id = this.id; filter.changed(id); });
 	init_css();
 }
 
-var filter = new Object();
 var query_results;
 var select_results = new Array();
 var maxnum_select_results = 5;
