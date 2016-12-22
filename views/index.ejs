@@ -26,6 +26,7 @@
 		<!-- xzr -->
 		<!-- list 相关css -->
 		<link rel="stylesheet" type="text/css" href="/stylesheets/list.css">
+		<link rel="stylesheet" type="text/css" href="/stylesheets/select.css">
 		<!-- xzr end -->
 	</head>
 	<body>
@@ -271,31 +272,10 @@
 						</div>
 					</div>
 					<div class="row clearfix">
-						<div class="col-md-8 column">
-							<div class="col-sm-6 col-md-3">
-						        <a href="#" class="thumbnail">
-						            <img src="images/kittens.jpg"
-						                 alt="通用的占位符缩略图">
-						        </a>
-						    </div>
-						    <div class="col-sm-6 col-md-3">
-						        <a href="#" class="thumbnail">
-						            <img src="images/kittens.jpg"
-						                 alt="通用的占位符缩略图">
-						        </a>
-						    </div>
-						    <div class="col-sm-6 col-md-3">
-						        <a href="#" class="thumbnail">
-						            <img src="images/kittens.jpg"
-						                 alt="通用的占位符缩略图">
-						        </a>
-						    </div>
-						    <div class="col-sm-6 col-md-3">
-						        <a href="#" class="thumbnail">
-						            <img src="images/kittens.jpg"
-						                 alt="通用的占位符缩略图">
-						        </a>
-						    </div>
+						<div class="col-md-8 column" style="margin-top: 10px; margin-bottom: 0px">
+							<div id="select_results" class="row" style="margin-bottom: 1em; padding-left: 15px; padding-right: 15px;">
+
+							</div>
 							<div class="tabbable" id="tabs-1">
 								<ul class="nav nav-tabs">
 									<li class="active">
@@ -319,9 +299,9 @@
 								</div>
 							</div>
 						</div>
-						<div class="col-md-4 column">
+						<div class="col-md-4 column" style="margin-top: 10px">
 							<div id="reslist" class="list-group">
-								<div style="margin: 0 0.5em; margin-bottom: -0.5em;">
+								<div style="margin: 0 0.2em; margin-bottom: -0.5em;">
 									<input class="search" placeholder="Search" />
 									<button class="sort" data-sort="name">name</button>
 									<button class="sort" data-sort="count">reviews</button>
@@ -361,9 +341,10 @@
         <script type="text/javascript" src="/javascripts/summarize.js"></script>
 		<!-- slf end -->
 		<!-- xzr -->
-		<!-- list 相关js -->
+		<!-- list, select result 相关js -->
 		<script type="text/javascript" src="/javascripts/list.min.js"></script>
 		<script type="text/javascript" src="/javascripts/listshow.js"></script>
+		<script type="text/javascript" src="/javascripts/selectshow.js"></script>
 		<!-- xzr end -->
 	</body>
 </html>

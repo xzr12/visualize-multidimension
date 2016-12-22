@@ -23,6 +23,7 @@ function update_display(type)
 {
 	// update_thumbnails();
 	update_list();
+	update_select();
 	update_map(type);
 	update_summarize();
 	// update_details();
