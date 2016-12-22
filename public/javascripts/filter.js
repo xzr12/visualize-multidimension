@@ -244,12 +244,13 @@
 		var str_filter = this.generate_query_str();
 		xmlhttp.open("GET",("/query/filter_result.json?"+str_filter),true);
 		xmlhttp.send();
+		var tfilter = this;
 		xmlhttp.onreadystatechange=function()
 		{
 			if (xmlhttp.readyState==4 && xmlhttp.status==200){
 			    query_results = JSON.parse(xmlhttp.responseText);
 			    // get intersection of select_results and query_results
-			    select_results = select_results.filter(v => in_query_array(v));
+			    select_results = select_results.filter(v => tfilter.in_query_array(v));
 			    update_display();
 			}
 		}
