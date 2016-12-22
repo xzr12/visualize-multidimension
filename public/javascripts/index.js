@@ -20,15 +20,13 @@ function init_css(){
 	// $("#tabs").outerHeight(tags_height - 20);
 }
 
-function update_display()
+function update_display(type)
 {
 	// update_thumbnails();
 	update_list();
-	// console.log("new2",select_results);
-	update_map();
-	// console.log("new3",select_results);
+	update_select();
+	update_map(type);
 	update_summarize();
-	// update_details();
 }
 
 function init()
