@@ -77,9 +77,9 @@ function init_all_filters(){
 }
 
 function init_tags(){
-	// $("#tags input").tagsinput({
-	// 	freeInput: false
-	// });
+	$("#tags input").tagsinput({
+		freeInput: false
+	});
 }
 
 // 选择响应
