@@ -149,7 +149,7 @@ function SelectControl(controlDiv, map, text) {
 
             }
             removeShape();
-            update_summarize();
+            update_display('select');
         });
     } else if (text == '取消选中') {
         google.maps.event.addDomListener(controlUI, 'click', function() {
@@ -185,7 +185,7 @@ function SelectControl(controlDiv, map, text) {
 
             }
             removeShape();
-            update_summarize();
+            update_display('select');
         });
     } else {
         google.maps.event.addDomListener(controlUI, 'click', function() {
@@ -251,8 +251,18 @@ function initParm(restList) {
     }
 }
 
-function update_map() {
+function update_map(type) {
     // body...
+    if (type == 'select') {
+        for (var i = 0; i < restaurantList.length; i++) {
+            if (select_results.indexOf(restaurantList[i]) != -1) {
+                markerList[i].setIcon(selectedIcon);
+            } else {
+                markerList[i].setIcon(unselectedIcon);
+            }
+        }
+        return;
+    }
     removeMarker();
     removeShape();
     if (query_results == null || query_results.length == 0) {
@@ -271,10 +281,18 @@ function showRestInfo(restList) {
         });
         var place = new google.maps.LatLng(rest.latitude, rest.longitude);
         // market样式
-        var marker = new google.maps.Marker({
+        var marker;
+        if (select_results.indexOf(rest) != -1) {
+            marker = new google.maps.Marker({
+            position: place,
+            icon: selectedIcon
+        });
+        } else {
+            marker = new google.maps.Marker({
             position: place,
             icon: unselectedIcon
         });
+        }
         marker.setMap(map);
 
         // 鼠标移动到marker时显示餐馆信息
@@ -294,7 +312,7 @@ function showRestInfo(restList) {
                 select_results.push(rest);
                 marker.setIcon(selectedIcon);
             }
-            update_summarize();
+            update_display('select');
         });
         markerList.push(marker);
     });
