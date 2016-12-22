@@ -5,11 +5,18 @@ function init_css(){
 	var left_panel_body_height = window_height - left_panel_head_height;
 	$("#left-sidebar .panel-body").outerHeight(left_panel_body_height - 2);
 
+	var tags_height = $("#tags").outerHeight() + 20;
+	var reslist_height = window_height - tags_height;
+	var reslist_head_height = $("#reslist div").outerHeight();
+	var reslist_body_height = reslist_height - reslist_head_height;
+	$("#reslist").css("margin-bottom", 0);
+	$("#reslist ul").outerHeight(reslist_body_height);
+
 	// set map size
-	var tags_height = $("#tags").outerHeight();
-	var thumbnails_height = $("#thumbnails").outerHeight();
-	var tabs_height = window_height - tags_height - thumbnails_height;
-	$("#tabs").outerHeight(tags_height);
+	// var tags_height = $("#tags").outerHeight();
+	// var thumbnails_height = $("#thumbnails").outerHeight();
+	// var tabs_height = window_height - tags_height - thumbnails_height;
+	// $("#tabs").outerHeight(tags_height - 20);
 }
 
 function update_display()
