@@ -2,7 +2,7 @@
 // Function: function of list
 
 function update_list() {
-    $($('.list')[0]).html('<ul class="list"></ul>');
+    $($('.list')[0]).html('');
 
     var options = {
         valueNames: [ 'name', 'stars', 'service', 'environment', 'food', 'price', 'count', 'address', 'category', 'business' ],
@@ -27,25 +27,39 @@ function update_list() {
 
     var resList = new List('reslist', options, values);
 
-    var data, stars;
+    var data, stars, business_id;
     for (var i = 0, l = query_results.length; i < l; i++) {
         data = parseData(query_results[i]);
         resList.add(data);
         stars = data.stars;
         ($('.input-stars')[i]).value = stars;
         $($('.input-stars')[i]).rating({displayOnly: true, step: 0.1});
+        business_id = query_results[i].business_id;
+        if (getObjwithBusinessId(business_id, select_results) != null) {
+            $($('.list_choose')[i]).css('display', 'block');
+        }
     }
 
     $('.list-group-item').click(function () {
         var obj = this.children[1];
         var business_id = $(this.children[8]).text();
-        console.log(business_id);
         var state = $(obj).css('display');
+        var select_id;
         if (state == "none") {
             $(obj).css('display', 'block');
+            select_id = getObjwithBusinessId(business_id, query_results);
+            if (select_id != null) {
+                select_results.push(query_results[select_id]);
+                update_display();
+            }
         }
         else {
             $(obj).css('display', 'none');
+            select_id = getObjwithBusinessId(business_id, select_results);
+            if (select_id != null) {
+                select_results.splice(select_id, 1);
+                update_display();
+            }
         }
     });
 }
@@ -61,10 +75,10 @@ function parseData(query) {
     }
     for (var j = 0, k = temp.length; j < k; j++) {
         if (j == k - 1) {
-            category += temp[j] + ", "
+            category += temp[j];
         }
         else {
-            category += temp[j];
+            category += temp[j] + ", ";
         }
     }
     var res = {
@@ -83,12 +97,13 @@ function parseData(query) {
 }
 
 
-function getObjwithBusinessId(id) {
+function getObjwithBusinessId(id, lst) {
     var business_id;
-    for (var i = 0, l = query_results.length; i < l; i++) {
-        business_id = query_results[i].business_id;
+    for (var i = 0, l = lst.length; i < l; i++) {
+        business_id = lst[i].business_id;
         if (id == business_id) {
-            return query_results[i];
+            return i;
         }
     }
+    return null;
 }
