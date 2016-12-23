@@ -1,17 +1,3 @@
-//测试用的餐馆信息数组
-var testList = [{"name": "rest1", "stars": 4.1, "latitude": 40.3543266, "longitude": -79.9007057},
-                {"name": "rest2", "stars": 4.5, "latitude": 40.4088301, "longitude": -79.8662107},
-                {"name": "rest3", "stars": 4.5, "latitude": 40.3875124, "longitude": -80.0932152},
-                {"name": "rest4", "stars": 2.5, "latitude": 40.3964688, "longitude": -80.0849416},
-                {"name": "rest5", "stars": 3.6, "latitude": 40.3980013, "longitude": -80.1834577},
-                {"name": "rest6", "stars": 2.2, "latitude": 40.3380013, "longitude": -80.2834577},
-                {"name": "rest7", "stars": 1.6, "latitude": 40.3480013, "longitude": -80.3834577},
-                {"name": "rest8", "stars": 2.4, "latitude": 40.3180013, "longitude": -80.4834577},
-                {"name": "rest9", "stars": 5.0, "latitude": 40.3680013, "longitude": -80.5834577},
-                ];
-var restaurantList = new Array();
-// 选中餐厅列表
-// var selectList = new Array();
 // 地图变量
 map = null;
 
@@ -121,27 +107,27 @@ function SelectControl(controlDiv, map, text) {
     if (text == '选中') {
         google.maps.event.addDomListener(controlUI, 'click', function() {
             // 循环餐厅，检查每个餐厅是否在所画区域内
-            var len = restaurantList.length;
-            for (var i = 0; i < restaurantList.length; i++) {
+            var len = query_results.length;
+            for (var i = 0; i < query_results.length; i++) {
                 // 如果已在选中列表内，返回
-                 if ((pos = select_results.indexOf(restaurantList[i])) != -1) {
+                 if ((pos = select_results.indexOf(query_results[i])) != -1) {
                     continue;
                 }
                 var j;
                 for (j = 0, l = circleList.length; j < l; j++) {
-                    var isIn = isInCircle(circleList[j], restaurantList[i]);
+                    var isIn = isInCircle(circleList[j], query_results[i]);
                     if (isIn) {
-                        select_results.push(restaurantList[i]);
+                        select_results.push(query_results[i]);
                         markerList[i].setIcon(selectedIcon);
-                        break;
+                        break
                     }
                 }
                 if (j < circleList.length) {
                     continue;
                 }
                 for (j = 0; j < rectList.length; j++) {
-                    if (isInRectangle(rectList[j], restaurantList[i])) {
-                        select_results.push(restaurantList[i]);
+                    if (isInRectangle(rectList[j], query_results[i])) {
+                        select_results.push(query_results[i]);
                         markerList[i].setIcon(selectedIcon);
                         break;
                     }
@@ -154,17 +140,17 @@ function SelectControl(controlDiv, map, text) {
     } else if (text == '取消选中') {
         google.maps.event.addDomListener(controlUI, 'click', function() {
             // 循环餐厅，检查每个餐厅是否在所画区域内
-            var len = restaurantList.length;
-            for (var i = 0; i < restaurantList.length; i++) {
+            var len = query_results.length;
+            for (var i = 0; i < query_results.length; i++) {
                 // 如果不在选中列表内，返回
-                 if ((pos = select_results.indexOf(restaurantList[i])) == -1) {
+                 if ((pos = select_results.indexOf(query_results[i])) == -1) {
                     continue;
                 }
                 var j;
                 for (j = 0, l = circleList.length; j < l; j++) {
-                    var isIn = isInCircle(circleList[j], restaurantList[i]);
+                    var isIn = isInCircle(circleList[j], query_results[i]);
                     if (isIn) {
-                        var pos = select_results.indexOf(restaurantList[i]);
+                        var pos = select_results.indexOf(query_results[i]);
                         select_results.splice(pos, 1);
                         markerList[i].setIcon(unselectedIcon);
                         break;
@@ -175,8 +161,8 @@ function SelectControl(controlDiv, map, text) {
                 }
 
                 for (j = 0; j < rectList.length; j++) {
-                    if (isInRectangle(rectList[j], restaurantList[i])) {
-                        var pos = select_results.indexOf(restaurantList[i]);
+                    if (isInRectangle(rectList[j], query_results[i])) {
+                        var pos = select_results.indexOf(query_results[i]);
                         select_results.splice(pos, 1);
                         markerList[i].setIcon(unselectedIcon);
                         break;
@@ -243,19 +229,11 @@ function isInRectangle(rectangle, rest){
     return false;
 }
 
-function initParm(restList) {
-    // body...
-    restaurantList = new Array();
-    for (var i = 0; i < restList.length; i++) {
-        restaurantList.push(restList[i]);
-    }
-}
-
 function update_map(type) {
     // body...
     if (type == 'select') {
-        for (var i = 0; i < restaurantList.length; i++) {
-            if (select_results.indexOf(restaurantList[i]) != -1) {
+        for (var i = 0; i < query_results.length; i++) {
+            if (isInSelectList(query_results[i]) != -1) {
                 markerList[i].setIcon(selectedIcon);
             } else {
                 markerList[i].setIcon(unselectedIcon);
@@ -271,27 +249,30 @@ function update_map(type) {
     showRestInfo(query_results);
 }
 
+function isInSelectList(rest){
+    for (var i = 0, l = select_results.length; i < l; i++) {
+        if (rest.business_id == select_results[i].business_id) {
+            return i;
+        }
+    }
+    return -1;
+}
+
 // 显示餐馆信息，参数是json 数组, 调用的函数
-function showRestInfo(restList) {
-    initParm(restList);
-    var len = restList.length;
-    restList.forEach(function(rest, index, all){
+function showRestInfo() {
+    var len = query_results.length;
+    query_results.forEach(function(rest, index, all){
         var infowindow = new google.maps.InfoWindow({
             content: rest.name + "</br>" + getStarRatingFieldset(rest.stars)
         });
         var place = new google.maps.LatLng(rest.latitude, rest.longitude);
         // market样式
-        var marker;
-        if (select_results.indexOf(rest) != -1) {
-            marker = new google.maps.Marker({
-            position: place,
-            icon: selectedIcon
-        });
-        } else {
-            marker = new google.maps.Marker({
-            position: place,
-            icon: unselectedIcon
-        });
+        var marker = new google.maps.Marker({
+                    position: place,
+                    icon: unselectedIcon
+                });
+        if (isInSelectList(rest) != -1) {
+            marker.setIcon(selectedIcon);
         }
         marker.setMap(map);
 
@@ -305,7 +286,7 @@ function showRestInfo(restList) {
         });
         // marker点击事件，选中或者不选中状态切换
         google.maps.event.addListener(marker, 'click', function(){
-            if ((pos = select_results.indexOf(rest)) != -1) {
+            if ((pos = isInSelectList(rest)) != -1) {
                 select_results.splice(pos, 1);
                 marker.setIcon(unselectedIcon);
             } else {
@@ -316,15 +297,16 @@ function showRestInfo(restList) {
         });
         markerList.push(marker);
     });
-    changeCenter(restList);
+
+    changeCenter();
 }
 
 //按照餐厅的经纬度进行地图缩放
-function changeCenter(restList) {
+function changeCenter() {
     var latlngbounds = new google.maps.LatLngBounds();
-    var len = restList.length;
-    for (var i = 0; i < restList.length; i++) {
-        latlngbounds.extend(new google.maps.LatLng(restList[i].latitude, restList[i].longitude));
+    var len = query_results.length;
+    for (var i = 0; i < query_results.length; i++) {
+        latlngbounds.extend(new google.maps.LatLng(query_results[i].latitude, query_results[i].longitude));
     }
     map.fitBounds(latlngbounds);
 }
