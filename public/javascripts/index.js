@@ -31,7 +31,7 @@ function update_display(type)
 
 function init()
 {
-	filter = Object.create(Filter);
+	var filter = Object.create(Filter);
 	filter.init();
 	$('#filter [id]').change(function(){ var id = this.id; filter.changed(id); });
 	init_css();
