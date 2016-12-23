@@ -11,13 +11,13 @@ function update_list() {
         '<div class="list_choose" style="display: none;"><img src="/images/right.png"></div>' +
         '<div class="stars" style="display: none"></div>' +
         '<div class="row"><div class="col-md-12"><input class="input-stars rating-loading" name="input-stars" value="5" data-size="xs"></div></div>' +
-        '<div class="row"><div class="col-md-1"><strong><div class="count"></div></strong></div><div class="col-md-3" style="margin-left: -5px;">reviews</div></div>' +
-        '<div class="row">' +
-        '<div class="col-md-1" style="margin-right: 20px;">Service</div><div class="col-md-1"><strong><div class="service"></div></strong></div>' +
-        '<div class="col-md-3" style="margin-left: -5px;">|<span style="margin-left: 5px;"></span>Envrionment</div><div class="col-md-1"><strong><div class="environment"></div></strong></div>' +
-        '<div class="col-md-2" style="margin-left: -5px; margin-right: -20px;">|<span style="margin-left: 5px;"></span>Food</div><div class="col-md-1"><strong><div class="food"></div></strong></div>' +
-        '<div class="col-md-2" style="margin-left: -5px; margin-right: -13px;">|<span style="margin-left: 5px;"></span>Price</div><div class="col-md-1"><strong><div class="price"></div></strong></div></div>' +
-        '<div style="margin-top: 5px; margin-bottom: 5px; "><strong style="text-decoration: underline;">Food categories</strong><div class="category"></div></div>' +
+        '<div class="row col-md-12"><div class="list_left"><strong><div class="count"></div></strong></div><div class="list_left" style="margin-left: 0.5em;">reviews</div></div>' +
+        '<div class="row col-md-12" style="font-size:0.85em; padding-right: 0; margin-top: 5px;">' +
+        '<div class="list_left">Service</div><div class="list_left" style="margin-left: 0.25em;"><strong><div class="service"></div></strong></div>' +
+        '<div class="list_left" style="margin-left: 0.25em">|<span style="margin-left: 0.25em;"></span>Envrionment</div><div class="list_left" style="margin-left: 0.25em;"><strong><div class="environment"></div></strong></div>' +
+        '<div class="list_left" style="margin-left: 0.25em;">|<span style="margin-left: 0.25em;"></span>Food</div><div class="list_left" style="margin-left: 0.25em;"><strong><div class="food"></div></strong></div>' +
+        '<div class="list_left" style="margin-left: 0.25em;">|<span style="margin-left: 0.25em;"></span>Price</div><div class="list_left" style="margin-left: 0.25em;"><strong><div class="price"></div></strong></div></div>' +
+        '<div class="row col-md-12" style="margin-top: 5px; margin-bottom: 5px; "><strong style="text-decoration: underline;">Food categories</strong><div class="category"></div></div>' +
         '<div><strong style="text-decoration: underline;">Address</strong><div class="address"></div></div>' +
         '<div class="business" style="display: none"></div> ' +
         '</li>'
