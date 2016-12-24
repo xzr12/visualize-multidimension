@@ -2,39 +2,45 @@
 	//定义变量
 	query : new Object(),
 	fdom : {
-		state      : $("#filter-state select"),
-		city       : $("#filter-city select"),
-		time       : $("#filter-time select"),
-		type       : $("#filter-type select"),
-		parking    : $("#filter-attr-parking select"),
-		wifi       : $("#filter-attr-wifi select"),
-		noiselevel : $("#filter-attr-noiselevel select"),
+		state             : $("#filter-state select"),
+		city              : $("#filter-city select"),
+		time              : $("#filter-time select"),
+		type              : $("#filter-type select"),
+		parking           : $("#filter-parking select"),
+		wifi              : $("#filter-wifi select"),
+		noise             : $("#filter-noise select"),
+		star              : $("#filter-star input"),
+		service           : $("#filter-service input"),
+		environment       : $("#filter-environment input"),
+		food              : $("#filter-food input"),
+		price             : $("#filter-price input"),
+		AcceptsCreditCards: $("#filter-AcceptsCreditCards input"),
+		TakeReservations  : $("#filter-TakeReservations input"),
+		Open24Hours       : $("#filter-Open24Hours input"),
+		HappyHour         : $("#filter-HappyHour input"),
 	},
 	
 	// 定义函数
 	init : function(){
 		// 初始化query
-		this.query.review = new Object();
-		this.query.attr = new Object();
-
 		this.query.state = null;
 		this.query.city = null;
-		this.query.hours = null;
-		this.query.attr.GoodFor = null;
-		this.query.attr.Parking = null;
-		this.query.attr.WiFi = null;
-		this.query.attr.NoiseLevel = null;
+		this.query.time = null;
+		this.query.type = null;
+		this.query.parking = null;
+		this.query.wifi = null;
+		this.query.noise = null;
 
-		this.query.stars = null;
-		this.query.review.service = null;
-		this.query.review.environment = null;
-		this.query.review.food = null;
-		this.query.review.price = null;
+		this.query.star = null;
+		this.query.service = null;
+		this.query.environment = null;
+		this.query.food = null;
+		this.query.price = null;
 
-		this.query.attr.AcceptsCreditCards = null;
-		this.query.attr.HappyHour = null;
-		this.query.attr.TakeReservations = null;
-		this.query.attr.Open24Hours = null;
+		this.query.AcceptsCreditCards = null;
+		this.query.TakeReservations = null;
+		this.query.Open24Hours = null;
+		this.query.HappyHour = null;
 
 		// 初始化html
 		this.fdom.state.select2({
@@ -62,43 +68,119 @@
 		  placeholder: "Wifi demand",
 		  allowClear: true
 		});
-		this.fdom.noiselevel.select2({
+		this.fdom.noise.select2({
 		  placeholder: "Accepted noise level",
 		  allowClear: true
 		});
+		var tfilter = this;
+		$('#tags select').on('itemRemoved', function(event) {
+			tfilter.tags_changed(event.item);
+		});
 	},
 	// 选择响应
-	changed : function(id){
-		// change query condition
-		this.update_query(id);
+	filter_changed : function(id){
+		this.update_query_by_filter_changed(id);
+		this.send_query_conditions();
 		// abled filter-city
 		if (id == "filter-state")
 		{
 			this.update_city_dom();
 		}
-		this.send_query_conditions();
+		// update tags display
+		this.update_tags_by_filter_changed();
 	},
-	update_query : function(id){
+	tags_changed : function(item){
+		console.log(item);
+		if (item.indexOf("state") == 0){
+			this.query.state = null;
+			this.fdom.state.val("").trigger("change");
+			this.query.city = null;
+			this.fdom.city.val("").trigger("change");
+		}
+		else if (item.indexOf("city") == 0){
+			this.query.city = null;
+			this.fdom.city.val("").trigger("change");
+		}
+		else if (item.indexOf("time") == 0){
+			this.query.time = null;
+			this.fdom.time.val(null).trigger("change");
+		}
+		else if (item.indexOf("type") == 0){
+			this.query.type = null;
+			this.fdom.type.val(null).trigger("change");
+		}
+		else if (item.indexOf("parking") == 0){
+			this.query.parking = null;
+			this.fdom.parking.val(null).trigger("change");
+		}
+		else if (item.indexOf("wifi") == 0){
+			this.query.wiFi = null;
+			this.fdom.wifi.val(null).trigger("change");
+		}
+		else if (item.indexOf("noise") == 0){
+			this.query.noise = null;
+			this.fdom.noise.val(null).trigger("change");
+		}
+		else if (item.indexOf("star") == 0){
+			this.query.star = null;
+			this.fdom.star.rating('update', 0);
+		}
+		else if (item.indexOf("service") == 0){
+			this.query.service = null;
+			this.fdom.service.rating('update', 0);
+		}
+		else if (item.indexOf("environment") == 0){
+			this.query.environment = null;
+			this.fdom.environment.rating('update', 0);
+		}
+		else if (item.indexOf("food") == 0){
+			this.query.food = null;
+			this.fdom.food.rating('update', 0);
+		}
+		else if (item.indexOf("price") == 0){
+			this.query.price = null;
+			this.fdom.price.rating('update', 0);
+		}
+		else if (item.indexOf("Accepts") == 0){
+			this.query.AcceptsCreditCards = null;
+			this.fdom.AcceptsCreditCards.attr("checked",false);
+ 		}
+ 		else if (item.indexOf("Take") == 0){
+			this.query.TakeReservations = null;
+			this.fdom.TakeReservations.attr("checked",false);
+ 		}
+ 		else if (item.indexOf("Open") == 0){
+			this.query.Open24Hours = null;
+			this.fdom.Open24Hours.attr("checked",false);
+ 		}
+ 		else if (item.indexOf("Happy") == 0){
+			this.query.HappyHour = null;
+			this.fdom.HappyHour.attr("checked",false);
+ 		}
+ 		this.send_query_conditions();
+	},
+	update_query_by_filter_changed : function(id){
 		switch (id)
 		{
 			case "filter-state":
 			{
-				if ($("#filter-state select").val() == ""){
-					// $("#tags input").tagsinput('remove','state:'+filter.state);
+				if (this.fdom.state.val() == ""){
 					this.query.state = null;
+					this.query.city = null;
 				}
 				else{
-					// $("#tags input").tagsinput('remove','state:'+filter.state);
-					this.query.state = $("#filter-state select").val();
-					// $("#tags input").tagsinput('add','state:'+filter.state);
+					this.query.state = this.fdom.state.val();
 				}
 				break;
 			}
 			case "filter-city":
 			{
-				this.query.city = $("#filter-city select").val();
-				if (this.query.city == "")
+				if (this.fdom.city.val() == ""){
 					this.query.city = null;
+				}
+				else{
+					this.query.city = this.fdom.city.val();
+				}
 				break;
 			}
 			case "filter-time":
@@ -108,22 +190,22 @@
 			}
 			case "filter-type":
 			{
-				this.query.attr.GoodFor = $("#filter-type select").val();
+				this.query.type = $("#filter-type select").val();
 				break;
 			}
-			case "filter-attr-parking":
+			case "filter-parking":
 			{
-				this.query.attr.Parking = $("#filter-attr-parking select").val();
+				this.query.parking = $("#filter-parking select").val();
 				break;
 			}
-			case "filter-attr-wifi":
+			case "filter-wifi":
 			{
-				this.query.attr.WiFi = $("#filter-attr-wifi select").val();
+				this.query.wifi = $("#filter-wifi select").val();
 				break;
 			}
-			case "filter-attr-noiselevel":
+			case "filter-noise":
 			{
-				this.query.attr.NoiseLevel = $("#filter-attr-noiselevel select").val();
+				this.query.noise = $("#filter-noise select").val();
 				break;
 			}
 			case "filter-star":
@@ -131,61 +213,115 @@
 				this.query.stars = $("#filter-star input").val();
 				break;
 			}
-			case "filter-review-service":
+			case "filter-service":
 			{
-				this.query.review.service = $("#filter-review-service input").val();
+				this.query.service = $("#filter-service input").val();
 				break;
 			}
-			case "filter-review-environment":
+			case "filter-environment":
 			{
-				this.query.review.environment = $("#filter-review-environment input").val();
+				this.query.environment = $("#filter-environment input").val();
 				break;
 			}
-			case "filter-review-food":
+			case "filter-food":
 			{
-				this.query.review.food = $("#filter-review-food input").val();
+				this.query.food = $("#filter-food input").val();
 				break;
 			}
-			case "filter-review-price":
+			case "filter-price":
 			{
-				this.query.review.price = $("#filter-review-price input").val();
+				this.query.price = $("#filter-price input").val();
 				break;
 			}
-			case "filter-attr-AcceptsCreditCards":
+			case "filter-AcceptsCreditCards":
 			{
-				if ($("#filter-attr-AcceptsCreditCards input").is(':checked'))
-					this.query.attr.AcceptsCreditCards = true;
+				if ($("#filter-AcceptsCreditCards input").is(':checked'))
+					this.query.AcceptsCreditCards = true;
 				else
-					this.query.attr.AcceptsCreditCards = null;
+					this.query.AcceptsCreditCards = null;
 				break;
 			}
-			case "filter-attr-TakeReservations":
+			case "filter-TakeReservations":
 			{
-				if ($("#filter-attr-TakeReservations input").is(':checked'))
-					this.query.attr.TakeReservations = true;
+				if ($("#filter-TakeReservations input").is(':checked'))
+					this.query.TakeReservations = true;
 				else
-					this.query.attr.TakeReservations = null;
+					this.query.TakeReservations = null;
 				break;
 			}
-			case "filter-attr-Open24Hours":
+			case "filter-Open24Hours":
 			{
-				if ($("#filter-attr-Open24Hours input").is(':checked'))
-					this.query.attr.Open24Hours = true;
+				if ($("#filter-Open24Hours input").is(':checked'))
+					this.query.Open24Hours = true;
 				else
-					this.query.attr.Open24Hours = null;
+					this.query.Open24Hours = null;
 				break;
 			}
-			case "filter-attr-HappyHour":
+			case "filter-HappyHour":
 			{
-				if ($("#filter-attr-HappyHour input").is(':checked'))
-					this.query.attr.HappyHour = true;
+				if ($("#filter-HappyHour input").is(':checked'))
+					this.query.HappyHour = true;
 				else
-					this.query.attr.HappyHour = null;
+					this.query.HappyHour = null;
 				break;
 			}
 			default:
 			{
 			}
+		}
+	},
+	update_tags_by_filter_changed : function(){
+		var tags_dom = $("#tags select");
+		tags_dom.tagsinput('removeAll');
+		if (this.query.state != null){
+			tags_dom.tagsinput('add', 'state:'+this.query.state);
+		}
+		if (this.query.city != null){
+			tags_dom.tagsinput('add', 'city:'+this.query.city);
+		}
+		if (this.query.hours != null){
+			tags_dom.tagsinput('add', 'time:'+this.query.hours);
+		}
+		if (this.query.type != null){
+			tags_dom.tagsinput('add', 'type:'+this.query.type);
+		}
+		if (this.query.parking != null){
+			tags_dom.tagsinput('add', 'parking:'+this.query.parking);
+		}
+		if (this.query.wifi != null){
+			tags_dom.tagsinput('add', 'wifi:'+this.query.wifi);
+		}
+		if (this.query.noise != null){
+			tags_dom.tagsinput('add', 'noise:'+this.query.noise);
+		}
+
+		if (this.query.stars != null){
+			tags_dom.tagsinput('add', 'star:'+this.query.stars);
+		}
+		if (this.query.service != null){
+			tags_dom.tagsinput('add', 'service:'+this.query.service);
+		}
+		if (this.query.environment != null){
+			tags_dom.tagsinput('add', 'environment:'+this.query.environment);
+		}
+		if (this.query.food != null){
+			tags_dom.tagsinput('add', 'food:'+this.query.food);
+		}
+		if (this.query.price != null){
+			tags_dom.tagsinput('add', 'food:'+this.query.price);
+		}
+
+		if (this.query.AcceptsCreditCards){
+			tags_dom.tagsinput('add', 'Accepts Credit Cards √');
+		}
+		if (this.query.TakeReservations){
+			tags_dom.tagsinput('add', 'Take Reservations √');
+		}
+		if (this.query.Open24Hours){
+			tags_dom.tagsinput('add', 'Open 24 Hours √');
+		}
+		if (this.query.HappyHour){
+			tags_dom.tagsinput('add', 'Happy Hour √');
 		}
 	},
 	update_city_dom : function(){
@@ -207,28 +343,26 @@
 			xmlhttp.send();
 			// xmlhttp.onreadystatechange = this.add_city_options_by_response(xmlhttp);
 			var tfilter = this;
-			xmlhttp.onreadystatechange = function(){tfilter.add_city_options_by_response(xmlhttp)};
+			xmlhttp.onreadystatechange = function(){
+				if (xmlhttp.readyState==4 && xmlhttp.status==200)
+			    {
+			        var data = JSON.parse(xmlhttp.responseText)[0];
+			        // console.log(data);
+			        tfilter.fdom.city.append($("<option></option").text(""));
+			        for (var i = 0;i < data.city.length;i ++)
+			        {
+			        	tfilter.fdom.city.append($("<option></option").text(data.city[i]));
+			        }
+			        tfilter.fdom.city.prop("disabled", false);
+			    }
+			};
 		}
 		else
 		{
 			this.fdom.city.prop("disabled", true);
-			this.query.city = null;
 		}
+		this.query.city = null;
 	},
-	add_city_options_by_response : function(xmlhttp){
-		if (xmlhttp.readyState==4 && xmlhttp.status==200)
-	    {
-	        var data = JSON.parse(xmlhttp.responseText)[0];
-	        // console.log(data);
-	        this.fdom.city.append($("<option></option").text(""));
-	        for (var i = 0;i < data.city.length;i ++)
-	        {
-	        	this.fdom.city.append($("<option></option").text(data.city[i]));
-	        }
-	        this.fdom.city.prop("disabled", false);
-	    }
-	},
-
 	// 发送筛选条件
 	send_query_conditions : function()
 	{
@@ -242,6 +376,7 @@
 			xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
 		}
 		var str_filter = this.generate_query_str();
+		console.log(str_filter);
 		xmlhttp.open("GET",("/query/filter_result.json?"+str_filter),true);
 		xmlhttp.send();
 		var tfilter = this;
@@ -264,24 +399,24 @@
 		return false;
 	},
 	generate_query_str : function(){
-		 str = "";
+		var str = "";
 		// filter.state
 		if (this.query.state != null) str += 'state=' + this.query.state + '&';
 		if (this.query.city != null) str += 'city=' + this.query.city + '&';
 		if (this.query.hours != null) str += 'hours=' + this.query.hours + '&';
 		if (this.query.stars != null) str += 'stars=' + this.query.stars + '&';
-		if (this.query.review.service != null) str += 'review.service=' + this.query.review.service + '&';
-		if (this.query.review.environment != null) str += 'review.environment=' + this.query.review.environment + '&';
-		if (this.query.review.food != null) str += 'review.food=' + this.query.review.food + '&';
-		if (this.query.review.price != null) str += 'review.price=' + this.query.review.price + '&';
-		if (this.query.attr.Parking != null) str += 'attributes.Parking=' + this.query.attr.Parking + '&';
-		if (this.query.attr.WiFi != null) str += 'attributes.Wi-Fi=' + this.query.attr.WiFi + '&';
-		if (this.query.attr.NoiseLevel != null) str += 'attributes.Noise-Level=' + this.query.attr.NoiseLevel + '&';
-		if (this.query.attr.HappyHour != null) str += 'attributes.Happy-Hour=' + this.query.attr.HappyHour + '&';
-		if (this.query.attr.AcceptsCreditCards != null) str += 'attributes.Accepts-Credit-Cards=' + this.query.attr.AcceptsCreditCards + '&';
-		if (this.query.attr.TakeReservations != null) str += 'attributes.Take-Reservations=' + this.query.attr.TakeReservations + '&';
-		if (this.query.attr.Open24Hours != null) str += 'attributes.Open-24-Hours=' + this.query.attr.Open24Hours + '&';
-		if (this.query.attr.GoodFor != null) str += 'attributes.Good-For=' + this.query.attr.GoodFor + '&';
+		if (this.query.service != null) str += 'review.service=' + this.query.service + '&';
+		if (this.query.environment != null) str += 'review.environment=' + this.query.environment + '&';
+		if (this.query.food != null) str += 'review.food=' + this.query.food + '&';
+		if (this.query.price != null) str += 'review.price=' + this.query.price + '&';
+		if (this.query.parking != null) str += 'attributes.Parking=' + this.query.parking + '&';
+		if (this.query.wifi != null) str += 'attributes.Wi-Fi=' + this.query.wifi + '&';
+		if (this.query.noise != null) str += 'attributes.Noise-Level=' + this.query.noise + '&';
+		if (this.query.HappyHour != null) str += 'attributes.Happy-Hour=' + this.query.HappyHour + '&';
+		if (this.query.AcceptsCreditCards != null) str += 'attributes.Accepts-Credit-Cards=' + this.query.AcceptsCreditCards + '&';
+		if (this.query.TakeReservations != null) str += 'attributes.Take-Reservations=' + this.query.TakeReservations + '&';
+		if (this.query.Open24Hours != null) str += 'attributes.Open-24-Hours=' + this.query.Open24Hours + '&';
+		if (this.query.type != null) str += 'attributes.Good-For=' + this.query.type + '&';
 
 		str = str.substring(0, str.length-1);
 		// str : "attributes.Good-For:Breakfast&attributes.Good-For:Lunch";
