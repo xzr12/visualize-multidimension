@@ -3,6 +3,7 @@ function init_css(){
 	$("#reslist ul").css("margin-top", 20);	
 	var select_results_max_height = 100;
 	$("#select_results").css("max-Height", select_results_max_height);
+	$("#tags input").attr("readonly", true);
 	
 	var window_height = $(window).height();
 	var left_panel_head_height = $("#left-sidebar .panel-heading").outerHeight();
