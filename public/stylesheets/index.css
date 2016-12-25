@@ -1,0 +1,32 @@
+html, body{
+	margin: 0px;
+	padding: 0px;
+	height: 100%;
+}
+#tags .bootstrap-tagsinput{
+	width: 100%;
+}
+.loading{
+	height: 100%;
+	color: white;
+}
+.container{
+	width: 100%;
+}
+#tags{
+	padding-top: 20px;
+	padding-bottom: 10px;
+	margin: 0px;
+}
+#select_results{
+	margin-bottom: 15px;
+	padding-left: 15px;
+	padding-right: 15px;
+	overflow: auto;
+}
+#reslist{
+	margin-bottom: 0px;
+}
+#reslist ul{
+	margin-top: 10px;
+}

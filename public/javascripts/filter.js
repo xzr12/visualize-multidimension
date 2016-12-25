@@ -210,27 +210,52 @@
 			}
 			case "filter-star":
 			{
-				this.query.stars = $("#filter-star input").val();
+				if (this.fdom.star.val() == 0){
+					this.query.star = null;
+				}
+				else{
+					this.query.star = this.fdom.star.val(); 
+				}
 				break;
 			}
 			case "filter-service":
 			{
-				this.query.service = $("#filter-service input").val();
+				if (this.fdom.service.val() == 0){
+					this.query.service = null;
+				}
+				else{
+					this.query.service = this.fdom.service.val(); 
+				}
 				break;
 			}
 			case "filter-environment":
 			{
-				this.query.environment = $("#filter-environment input").val();
+				if (this.fdom.environment.val() == 0){
+					this.query.environment = null;
+				}
+				else{
+					this.query.environment = this.fdom.environment.val(); 
+				}
 				break;
 			}
 			case "filter-food":
 			{
-				this.query.food = $("#filter-food input").val();
+				if (this.fdom.food.val() == 0){
+					this.query.food = null;
+				}
+				else{
+					this.query.food = this.fdom.food.val(); 
+				}
 				break;
 			}
 			case "filter-price":
 			{
-				this.query.price = $("#filter-price input").val();
+				if (this.fdom.price.val() == 0){
+					this.query.price = null;
+				}
+				else{
+					this.query.price = this.fdom.price.val(); 
+				}
 				break;
 			}
 			case "filter-AcceptsCreditCards":
@@ -295,8 +320,8 @@
 			tags_dom.tagsinput('add', 'noise:'+this.query.noise);
 		}
 
-		if (this.query.stars != null){
-			tags_dom.tagsinput('add', 'star:'+this.query.stars);
+		if (this.query.star != null){
+			tags_dom.tagsinput('add', 'star:'+this.query.star);
 		}
 		if (this.query.service != null){
 			tags_dom.tagsinput('add', 'service:'+this.query.service);
@@ -403,8 +428,8 @@
 		// filter.state
 		if (this.query.state != null) str += 'state=' + this.query.state + '&';
 		if (this.query.city != null) str += 'city=' + this.query.city + '&';
-		if (this.query.hours != null) str += 'hours=' + this.query.hours + '&';
-		if (this.query.stars != null) str += 'stars=' + this.query.stars + '&';
+		if (this.query.time != null) str += 'hours=' + this.query.time + '&';
+		if (this.query.star != null) str += 'stars=' + this.query.star + '&';
 		if (this.query.service != null) str += 'review.service=' + this.query.service + '&';
 		if (this.query.environment != null) str += 'review.environment=' + this.query.environment + '&';
 		if (this.query.food != null) str += 'review.food=' + this.query.food + '&';

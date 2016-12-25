@@ -8,7 +8,7 @@
   vertical-align: middle;
   border-radius: 4px;
   max-width: 100%;
-  line-height: 22px;
+  line-height: 28px;
   cursor: text;
 }
 .bootstrap-tagsinput input {
@@ -38,6 +38,7 @@
 .bootstrap-tagsinput .tag {
   margin-right: 2px;
   color: white;
+  font-size: 15px;
 }
 .bootstrap-tagsinput .tag [data-role="remove"] {
   margin-left: 8px;

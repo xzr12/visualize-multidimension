@@ -1,38 +1,44 @@
 function init_css(){
-	$("#reslist").css("margin-bottom", 0);
-	$("#reslist ul").css("margin-top", 20);	
+	
 	var select_results_max_height = 100;
 	$("#select_results").css("max-Height", select_results_max_height);
 	$("#tags input").attr("readonly", true);
 	
 	var window_height = $(window).height();
+	var left_panel_height = window_height - 2;
 	var left_panel_head_height = $("#left-sidebar .panel-heading").outerHeight();
-	var left_panel_body_height = window_height - left_panel_head_height;
-	$("#left-sidebar .panel-body").outerHeight(left_panel_body_height - 2);
-	var tags_height = $("#tags").outerHeight() + 20;
+	var left_panel_body_height = left_panel_height - left_panel_head_height;
+	$("#left-sidebar .panel-body").outerHeight(left_panel_body_height);
+
+	var tags_height = $("#tags").outerHeight();
+	var select_results_height = $("#select_results").outerHeight() + 15;
+	var tabs_height = window_height - tags_height - select_results_height;
+	$("#tabs").outerHeight(tabs_height);
+	var tabs_head_height = $("#tabs .nav-tabs").outerHeight();
+	var map_height = tabs_height - tabs_head_height - 25;
+	$("#map").outerHeight(map_height);
+	$("#lugui-wrapper").outerHeight(map_height);
 	var reslist_height = window_height - tags_height;
 	var reslist_head_height = $("#reslist div").outerHeight();
-	var reslist_body_height = reslist_height - reslist_head_height - 23;
+	var reslist_body_height = reslist_height - reslist_head_height - 10;
 	$("#reslist ul").outerHeight(reslist_body_height);
-	// set map size
-	var select_results_height = $("#select_results").outerHeight();
-	var tabs_height = window_height - tags_height - select_results_height;
-	var map_height = tabs_height - 100;
-	$("#map").outerHeight(map_height);
 }
 
 function update_css(){
 	var window_height = $(window).height();
-	var tags_height = $("#tags").outerHeight() + 20;
+	var tags_height = $("#tags").outerHeight();
+	// set map size
+	var select_results_height = $("#select_results").outerHeight() + 15;
+	var tabs_height = window_height - tags_height - select_results_height;
+	$("#tabs").outerHeight(tabs_height);
+	var tabs_head_height = $("#tabs .nav-tabs").outerHeight() + 25;
+	var map_height = tabs_height - tabs_head_height;
+	$("#map").outerHeight(map_height);
+	$("#lugui-wrapper").outerHeight(map_height);
 	var reslist_height = window_height - tags_height;
 	var reslist_head_height = $("#reslist div").outerHeight();
-	var reslist_body_height = reslist_height - reslist_head_height - 23;
+	var reslist_body_height = reslist_height - reslist_head_height - 10;
 	$("#reslist ul").outerHeight(reslist_body_height);
-	// set map size
-	var select_results_height = $("#select_results").outerHeight();
-	var tabs_height = window_height - tags_height - select_results_height;
-	var map_height = tabs_height - 100;
-	$("#map").outerHeight(map_height);
 }
 
 function update_display(type)
@@ -44,16 +50,21 @@ function update_display(type)
 	update_css();
 }
 
-function init()
+function init_components()
 {
 	var filter = Object.create(Filter);
 	filter.init();
 	$('#filter [id]').change(function(){ var id = this.id; filter.filter_changed(id); });
-	init_css();
+	$("[href='#panel-summarize']").on('show.bs.tab', function(e){
+		update_summarize();
+	})
 }
 
 var query_results;
 var select_results = new Array();
 $(document).ready(function(){
-	init();
+	init_css();
+	// setTimeout(function(){$(".loading").css("display", "none")},5000);
+	$(".loading").css("display", "none");
+	init_components();
 });
