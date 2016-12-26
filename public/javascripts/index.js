@@ -1,9 +1,9 @@
 function init_css(){
-	
+
 	var select_results_max_height = 100;
 	$("#select_results").css("max-Height", select_results_max_height);
 	$("#tags input").attr("readonly", true);
-	
+
 	var window_height = $(window).height();
 	var left_panel_height = window_height - 2;
 	var left_panel_head_height = $("#left-sidebar .panel-heading").outerHeight();
@@ -56,12 +56,18 @@ function init_components()
 	filter.init();
 	$('#filter [id]').change(function(){ var id = this.id; filter.filter_changed(id); });
 	$("[href='#panel-summarize']").on('show.bs.tab', function(e){
+		mapShow = false;
 		update_summarize();
-	})
+	});
+	$("[href='#panel-map']").on('show.bs.tab', function(e){
+		mapShow = true;
+		setZoom();
+	});
 }
 
 var query_results;
 var select_results = new Array();
+var mapShow = true;
 $(document).ready(function(){
 	init_css();
 	// setTimeout(function(){$(".loading").css("display", "none")},5000);

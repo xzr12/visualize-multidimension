@@ -1,6 +1,9 @@
 // 地图变量
 map = null;
 
+//
+var center;
+var zoomlevel;
 // 图标列表
 var markerList = new Array();
 // marker选中的Icon
@@ -297,10 +300,18 @@ function showRestInfo() {
         });
         markerList.push(marker);
     });
-
-    changeCenter();
+    if (mapShow) {
+        changeCenter();
+    }
 }
 
+function setZoom(){
+    if (map == null) {
+        return;
+    }
+    map.setCenter(center);
+    map.setZoom(zoomlevel);
+}
 //按照餐厅的经纬度进行地图缩放
 function changeCenter() {
     var latlngbounds = new google.maps.LatLngBounds();
@@ -309,6 +320,8 @@ function changeCenter() {
         latlngbounds.extend(new google.maps.LatLng(query_results[i].latitude, query_results[i].longitude));
     }
     map.fitBounds(latlngbounds);
+    center = map.getCenter();
+    zoomlevel = map.getZoom();
 }
 
 // 根据星级获取star rating
